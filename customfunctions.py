@@ -31,16 +31,20 @@ def popularOrder(df):
     df["Installs_clean"] = df["Installs"].str.replace("+","")     # df.Installs = df.Installs.apply(lambda x: x.strip("+"))
     df["Installs_clean"] = df["Installs_clean"].str.replace(",","")     # df.Installs = df.Installs.apply(lambda x: x.replace(",",""))
 
-    df.drop(['Installs'], axis=1)
+    # df = df.drop(['Installs'], axis=1)
 
     df.Installs = pd.to_numeric(df.Installs_clean)
 
-    df.drop(['Installs_clean'], axis=1)
+    df = df.drop(['Installs_clean'], axis=1)
 
-    dfSort = df.sort_values(by=['Installs'], ascending=False)
+    dfSort = df.sort_values(by=['Installs'], ascending=False, ignore_index = True)
 
     return(dfSort)
 
 def sizeRows(df):
     size = df.size / df.columns.size
     return(size)
+
+def mostPopular100(df):
+    df50 = df.iloc[0:100]
+    return df50
